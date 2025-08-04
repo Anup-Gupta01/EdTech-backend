@@ -1,6 +1,7 @@
 
 const express =require("express");
 const dotenv = require("dotenv");
+dotenv.config();
 const app =express();
 
 
@@ -21,14 +22,6 @@ const PORT  = process.env.PORT || 4000;
 //databse connect
 database.connect();
 
-// Ensure models are registered before app runs
-// require("./models/User");
-// require("./models/Course");
-// require("./models/Category");
-// require("./models/Section");
-// require("./models/SubSection");
-// require("./models/RatingAndReview");
-
 
 //middleware
 app.use(express.json());
@@ -44,7 +37,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "https://study-verse-frontend.vercel.app",
-  process.env.FRONTEND_URL
+  process.env.FRONTEND_URL?.replace(/\/$/, "")
 ];
 
 app.use(cors({
@@ -58,6 +51,10 @@ app.use(cors({
   },
   credentials: true,
 }));
+
+
+// ✅ Handle preflight (OPTIONS) requests for all routes
+app.options("*", cors());
 
 app.use(
     fileUpload({
