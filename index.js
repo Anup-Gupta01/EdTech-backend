@@ -35,27 +35,35 @@ app.use(cookieParser());
 // )
 
 
-const allowedOrigins = [
-    "http://localhost:3000",
-  "https://study-verse-frontend.vercel.app",
-  process.env.FRONTEND_URL?.replace(/\/$/, "")
-];
+// const allowedOrigins = [
+//     "http://localhost:3000",
+//   "https://study-verse-frontend.vercel.app",
+//   process.env.FRONTEND_URL?.replace(/\/$/, "")
+// ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like server-to-server or REST tools)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     // Allow requests with no origin (like server-to-server or REST tools)
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// }));
 
-
+app.use(
+	cors({
+		origin: "https://study-verse-frontend.vercel.app",
+    
+		credentials:true,
+	         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                 allowedHeaders: ["Content-Type", "Authorization"],
+	})
+)
 // ✅ Handle preflight (OPTIONS) requests for all routes
-app.options("*", cors());
+// app.options("*", cors());
 
 app.use(
     fileUpload({
@@ -81,8 +89,8 @@ app.get("/",(req,res)=>{
     });
 })
 
-// app.listen(PORT, ()=>{
-//     console.log(`App is running at ${PORT}`)
-// })
+app.listen(PORT, ()=>{
+    console.log(`App is running at ${PORT}`)
+})
 
 // module.exports = app;
