@@ -36,6 +36,7 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
+    "http://localhost:3000",
   "https://study-verse-frontend.vercel.app",
   process.env.FRONTEND_URL?.replace(/\/$/, "")
 ];
