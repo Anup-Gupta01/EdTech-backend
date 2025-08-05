@@ -85,4 +85,4 @@ app.listen(PORT, ()=>{
     console.log(`App is running at ${PORT}`)
 })
 
-// module.exports = app;
+module.exports = app;
